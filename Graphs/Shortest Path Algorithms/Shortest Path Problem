@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define mp make_pair
+#define pb push_back
+int main()
+{
+    ll n,e;
+    cin>>n>>e;
+    vector<vector<pair<ll,ll> > >v(n+1);
+    for(ll i=0;i<e;i++)
+    {
+        ll a,b,w;
+        cin>>a>>b>>w;
+        v[a].pb(mp(b,w));
+    }
+    vector<ll>ans(n+1,INT_MAX);
+    ans[1]=0;
+    for(ll i=1;i<=n;i++)
+    {
+        int flag=0;
+        for(ll j=1;j<=n;j++)
+        {
+            for(ll k=0;k<v[j].size();k++)
+            {
+                if(ans[v[j][k].first]>ans[j]+v[j][k].second){
+                    flag=1;
+                ans[v[j][k].first]=min(ans[v[j][k].first],ans[j]+v[j][k].second);
+                }
+            }
+        }
+        if(!flag)
+            break;
+    }
+    for(ll i=2;i<=n;i++)
+        cout<<ans[i]<<" ";
+}
